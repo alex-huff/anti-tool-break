@@ -8,7 +8,7 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry;
 @Config(name = "antitoolbreak")
 public class AntiToolBreakConfig implements ConfigData {
 	@ConfigEntry.Category("category.antitoolbreak")
-	public int triggerDurability = 5;
+	public int triggerDurability = 10;
 	@ConfigEntry.Category("category.antitoolbreak")
 	public boolean sneakToBypass = false;
 
@@ -32,6 +32,15 @@ public class AntiToolBreakConfig implements ConfigData {
 
 	@ConfigEntry.Category("category.antitoolbreak")
 	public boolean triggerFilter_other = false;
+
+	@ConfigEntry.Category("category.antitoolbreak")
+	public boolean shouldSendFixCommand = true;
+
+	@ConfigEntry.Category("category.antitoolbreak")
+	public String fixCommand = "fix all";
+
+	@ConfigEntry.Category("category.antitoolbreak")
+	public int fixCommandCooldown = 10 * 1000;
 
 	public boolean isMaterialProtected(ATB_ToolMaterial material) {
 		return triggerFilter_other && material == null

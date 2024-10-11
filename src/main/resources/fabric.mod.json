@@ -2,20 +2,18 @@
   "schemaVersion": 1,
   "id": "antitoolbreak",
   "version": "${version}",
-
   "name": "Anti Tool Break",
   "description": "Stops you from using your precious tools before they break.",
   "authors": [
-    "BlazingTwist"
+    "BlazingTwist",
+    "phonis"
   ],
   "contact": {
     "homepage": "https://github.com/BlazingTwist",
-    "sources": "https://github.com/BlazingTwist/AntiToolBreak"
+    "sources": "https://github.com/alex-huff/anti-tool-break"
   },
-
   "license": "Apache-2.0",
   "icon": "assets/antitoolbreak/icon128.png",
-
   "environment": "*",
   "entrypoints": {
     "main": [
@@ -28,7 +26,6 @@
   "mixins": [
     "antitoolbreak.mixins.json"
   ],
-
   "depends": {
     "fabricloader": ">=0.14.21",
     "fabric": "*",

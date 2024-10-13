@@ -14,5 +14,8 @@
   "text.autoconfig.antitoolbreak.option.triggerFilter_other": "Other types of tools",
   "text.autoconfig.antitoolbreak.option.shouldSendFixCommand": "Send a command to fix tools when trigger durability is reached",
   "text.autoconfig.antitoolbreak.option.fixCommand": "Fix command",
-  "text.autoconfig.antitoolbreak.option.fixCommandCooldown": "Minimum time between sending fix commands in milliseconds"
+  "text.autoconfig.antitoolbreak.option.fixCommandCooldown": "Minimum time between sending fix commands in milliseconds",
+  "text.autoconfig.antitoolbreak.option.shouldSendSecondaryCommand": "Send a secondary command after sending fix command",
+  "text.autoconfig.antitoolbreak.option.secondaryCommand": "Secondary command",
+  "text.autoconfig.antitoolbreak.option.secondaryCommandDelay": "Time to wait to send secondary command in milliseconds"
 }

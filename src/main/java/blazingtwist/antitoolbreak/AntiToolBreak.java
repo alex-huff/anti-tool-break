@@ -143,7 +143,39 @@ class AntiToolBreak implements ModInitializer
         {
             networkHandler.sendCommand(config.fixCommand);
             lastFixCommand = currentTimeMillis;
+            if (config.shouldSendSecondaryCommand)
+            {
+                executeSecondaryCommand();
+            }
         }
+    }
+
+    private static
+    void executeSecondaryCommand()
+    {
+        AntiToolBreakConfig config                = getConfig();
+        String              secondaryCommand      = config.secondaryCommand;
+        int                 secondaryCommandDelay = config.secondaryCommandDelay;
+        new Thread(() ->
+        {
+            try
+            {
+                Thread.sleep(secondaryCommandDelay);
+            }
+            catch (InterruptedException ignored)
+            {
+                return;
+            }
+            MinecraftClient.getInstance().execute(() ->
+            {
+                ClientPlayNetworkHandler networkHandler = MinecraftClient.getInstance().getNetworkHandler();
+                if (networkHandler == null)
+                {
+                    return;
+                }
+                networkHandler.sendCommand(secondaryCommand);
+            });
+        }).start();
     }
 
     private static

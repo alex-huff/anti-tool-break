@@ -15,6 +15,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public
@@ -49,6 +51,7 @@ class AntiToolBreak implements ModInitializer
     private static int                                      lastCheckedID     = -1;
     private static boolean                                  lastCheckedStatus = false;
     private static long                                     lastFixCommand    = 0;
+    private static long                                     lastSellCommand   = 0;
 
     public static
     AntiToolBreakConfig getConfig()
@@ -139,28 +142,52 @@ class AntiToolBreak implements ModInitializer
             return;
         }
         long currentTimeMillis = System.currentTimeMillis();
-        if ((currentTimeMillis - lastFixCommand) >= config.fixCommandCooldown)
+        if ((currentTimeMillis - lastFixCommand) < config.fixCommandCooldown)
         {
-            networkHandler.sendCommand(config.fixCommand);
-            lastFixCommand = currentTimeMillis;
-            if (config.shouldSendSecondaryCommand)
-            {
-                executeSecondaryCommand();
-            }
+            return;
         }
+        networkHandler.sendCommand(config.fixCommand);
+        lastFixCommand = currentTimeMillis;
+    }
+
+    public static
+    void onMessage(String message)
+    {
+        AntiToolBreakConfig config = AntiToolBreak.getConfig();
+        if (!config.shouldSendSellCommand)
+        {
+            return;
+        }
+        Pattern inventoryFullMessagePattern = Pattern.compile(config.inventoryFullMessageRegex);
+        Matcher matcher                     = inventoryFullMessagePattern.matcher(message);
+        if (!matcher.matches())
+        {
+            return;
+        }
+        long delay = config.sellCommandMinDelay +
+                     Math.round(Math.random() * (config.sellCommandMaxDelay - config.sellCommandMinDelay));
+        long currentTimeMillis = System.currentTimeMillis();
+        long commandSendTime   = currentTimeMillis + delay;
+        if ((commandSendTime - lastSellCommand) < config.sellCommandCooldown)
+        {
+            return;
+        }
+        lastSellCommand = commandSendTime;
+        executeCommandAsync(config.sellCommand, commandSendTime);
     }
 
     private static
-    void executeSecondaryCommand()
+    void executeCommandAsync(String command, long timeToSend)
     {
-        AntiToolBreakConfig config                = getConfig();
-        String              secondaryCommand      = config.secondaryCommand;
-        int                 secondaryCommandDelay = config.secondaryCommandDelay;
         new Thread(() ->
         {
             try
             {
-                Thread.sleep(secondaryCommandDelay);
+                long currentTimeMillis = System.currentTimeMillis();
+                if (timeToSend > currentTimeMillis)
+                {
+                    Thread.sleep(timeToSend - currentTimeMillis);
+                }
             }
             catch (InterruptedException ignored)
             {
@@ -173,7 +200,7 @@ class AntiToolBreak implements ModInitializer
                 {
                     return;
                 }
-                networkHandler.sendCommand(secondaryCommand);
+                networkHandler.sendCommand(command);
             });
         }).start();
     }

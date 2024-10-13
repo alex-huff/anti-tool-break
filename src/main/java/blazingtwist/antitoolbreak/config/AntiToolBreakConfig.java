@@ -42,16 +42,25 @@ class AntiToolBreakConfig implements ConfigData
     public String fixCommand = "fix all";
 
     @ConfigEntry.Category("category.antitoolbreak")
-    public int     fixCommandCooldown         = 10 * 1000;
+    public int fixCommandCooldown = 10 * 1000;
 
     @ConfigEntry.Category("category.antitoolbreak")
-    public boolean shouldSendSecondaryCommand = true;
+    public boolean shouldSendSellCommand = false;
 
     @ConfigEntry.Category("category.antitoolbreak")
-    public String secondaryCommand = "sell all";
+    public String sellCommand = "sell all";
 
     @ConfigEntry.Category("category.antitoolbreak")
-    public int secondaryCommandDelay = 5 * 1000;
+    public String inventoryFullMessageRegex
+                                      = "^\\(!\\) Your inventory is currently full.*$";
+    @ConfigEntry.Category("category.antitoolbreak")
+    public int    sellCommandCooldown = 10 * 1000;
+
+    @ConfigEntry.Category("category.antitoolbreak")
+    public int sellCommandMinDelay = 2 * 1000;
+
+    @ConfigEntry.Category("category.antitoolbreak")
+    public int sellCommandMaxDelay = 5 * 1000;
 
     public
     boolean isMaterialProtected(ATB_ToolMaterial material)

@@ -15,7 +15,10 @@
   "text.autoconfig.antitoolbreak.option.shouldSendFixCommand": "Send a command to fix tools when trigger durability is reached",
   "text.autoconfig.antitoolbreak.option.fixCommand": "Fix command",
   "text.autoconfig.antitoolbreak.option.fixCommandCooldown": "Minimum time between sending fix commands in milliseconds",
-  "text.autoconfig.antitoolbreak.option.shouldSendSecondaryCommand": "Send a secondary command after sending fix command",
-  "text.autoconfig.antitoolbreak.option.secondaryCommand": "Secondary command",
-  "text.autoconfig.antitoolbreak.option.secondaryCommandDelay": "Time to wait to send secondary command in milliseconds"
+  "text.autoconfig.antitoolbreak.option.shouldSendSellCommand": "Send a command to sell items when inventory full message is received",
+  "text.autoconfig.antitoolbreak.option.sellCommand": "Sell command",
+  "text.autoconfig.antitoolbreak.option.inventoryFullMessageRegex": "Regex of inventory full messages",
+  "text.autoconfig.antitoolbreak.option.sellCommandCooldown": "Minimum time between sending sell commands in milliseconds",
+  "text.autoconfig.antitoolbreak.option.sellCommandMinDelay": "Minimum delay after receiving an inventory full message before sending sell command",
+  "text.autoconfig.antitoolbreak.option.sellCommandMaxDelay": "Maximum delay after receiving an inventory full message before sending sell command"
 }
